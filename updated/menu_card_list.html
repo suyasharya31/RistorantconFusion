@@ -1,0 +1,28 @@
+<mat-list>
+    <mat-list-item *ngFor="let dish of dishes">
+        <img matListAvatar src= {{dish.image}} alt={{dish.name}}>
+        <h1 matLine>{{dish.name}}</h1>
+        <p matLine>
+            <span>{{dish.description}}</span>
+        </p>
+    </mat-list-item>
+
+</mat-list>
+
+<div *ngIf="selectedDish">
+    <mat-card>
+        <mat-card-header>
+                <mat-card-title>
+                <h1>{{selectedDish.name}}</h1>
+              </mat-card-title>
+        </mat-card-header>
+        <img mat-card-sm-image src={{selectedDish.image}}>
+        <mat-card-content>
+        <p>{{selectedDish.description}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-icon-button><mat-icon>home</mat-icon></button>
+            <button mat-stroked-button color="primary">Share</button>
+            <button mat-raised-button color="warn">like</button>
+        </mat-card-actions>
+    </mat-card>    
