@@ -4,6 +4,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
 import { MenuComponent } from './menu/menu.component';
 import 'hammerjs';
 @NgModule({
@@ -15,7 +16,7 @@ import 'hammerjs';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    
+    MatListModule,
     MatToolbarModule
   ],
   providers: [],
