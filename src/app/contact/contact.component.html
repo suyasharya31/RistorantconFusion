@@ -39,21 +39,30 @@
     <h3>Send us your Feedback</h3>
     <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
 
-    <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
       <p>
         <mat-form-field class="half-width" appearance="outline">
           <input matInput formControlName="firstname" placeholder="First Name" type="text">
+          <mat-error *ngIf="feedbackForm.get('firstname').hasError('required') && feedbackForm.get('firstname').touched">firstname is required</mat-error>
         </mat-form-field> &nbsp;&nbsp;
         <mat-form-field class="half-width" appearance="outline">
           <input matInput formControlName="lastname" placeholder="Last Name" type="text">
+          <mat-error *ngIf="feedbackForm.get('lastname').hasError('required') &&
+          feedbackForm.get('lastname').touched">lastname  is required</mat-error>
         </mat-form-field>
       </p>
       <p>
         <mat-form-field class="half-width" appearance="outline">
           <input matInput formControlName="telnum" placeholder="Tel. Number" type="tel">
+          <mat-icon matSuffix>local_phone</mat-icon>
+          <mat-error *ngIf="feedbackForm.get('telnum').hasError('required') &&
+          feedbackForm.get('telnum').touched">tel no  is required</mat-error>
         </mat-form-field>&nbsp;&nbsp;
         <mat-form-field class="half-width" appearance="outline">
-          <input matInput formControlName="email" placeholder="Email" type="email" required>
+          <input matInput formControlName="email" placeholder="Email" type="email">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="feedbackForm.get('email').hasError('required') &&
+          feedbackForm.get('email').touched">email is required</mat-error>
         </mat-form-field>
       </p>
       <table class="form-size">
@@ -73,7 +82,8 @@
           <textarea matInput formControlName="message" placeholder="Your Feedback" rows=12></textarea>
         </mat-form-field>
       </p>
-      <button type="submit" mat-button class="background-primary text-floral-white">Submit</button>
+      <button type="submit" mat-stroked-button color="accent" class="background-primary text-floral-white"
+      [disabled]="feedbackForm.invalid">Submit</button>
     </form>
   </div>
 </div>
