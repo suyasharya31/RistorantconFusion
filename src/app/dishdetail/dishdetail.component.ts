@@ -3,6 +3,7 @@ import {Params,ActivatedRoute } from '@angular/router';
 import {Location} from '@angular/common';
 import {Dish} from '../shared/dish';
 import {DishService} from '../services/dish.service';
+import {switchMap} from 'rxjs/operators';
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
@@ -10,13 +11,28 @@ import {DishService} from '../services/dish.service';
 })
 export class DishdetailComponent implements OnInit {
   
-  /* @Input()
-   */dish:Dish;
-  
-  constructor(private dishservice:DishService,private location:Location,private router:ActivatedRoute) { }
-  ngOnInit(): void {
-    let id=this.router.snapshot.params['id'];
-    this.dishservice.getDish(id).subscribe((dish)=>this.dish=dish);
+  /* @Input()*/
+  dish:Dish;
+  dishIds:string[];
+  prev:string;
+  next:string;
+  constructor(private dishservice:DishService,private location:Location,
+    private router:ActivatedRoute) { }
+  ngOnInit(){
+    //activated router service provides observable for ex params
+    //let id=this.router.snapshot.params['id'];
+    this.dishservice.getDishIds()
+    .subscribe((dishIds) =>this.dishIds=dishIds);
+
+    this.router.params.pipe(switchMap((params:Params) => this.dishservice.getDish(params['id'])))
+  .subscribe(dish=>{this.dish=dish; this.setPrevNext(dish.id);});
+  }
+
+  setPrevNext(dishId:string)
+  {
+    const index=this.dishIds.indexOf(dishId);
+    this.prev=this.dishIds[(this.dishIds.length +index - 1)%this.dishIds.length];
+    this.next=this.dishIds[(this.dishIds.length+index+1)%this.dishIds.length];
   }
 
   goBack():void{
