@@ -1,4 +1,4 @@
-<div class="container" >
+<div class="container" *ngIf="dishes">
     <div>
         <span>MENU</span>
         <hr>
@@ -15,4 +15,9 @@
    <!-- 
        add this ti mat-grid-list -> (click)="onSelect(dish)"
        <app-dishdetail [dish]="selectedDish"></app-dishdetail> -->
+</div>
+
+<div [hidden]="dishes">
+<mat-spinner color="accent"></mat-spinner>
+<h4>Loading..</h4>
 </div>
