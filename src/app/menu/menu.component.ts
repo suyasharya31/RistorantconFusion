@@ -12,7 +12,8 @@ export class MenuComponent implements OnInit {
 
   dishes:Dish[];
   selectedDish:Dish;
-  constructor(private obj:DishService) {
+  constructor(private obj:DishService) 
+  {
     obj.getDishes().subscribe((dishes)=>this.dishes=dishes);
   }
 

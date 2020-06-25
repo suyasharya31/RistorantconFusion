@@ -12,10 +12,17 @@ import {delay} from 'rxjs/operators';
 export class DishService {
 
   constructor() { }
-  getDishes():Observable<Dish[]>
+ /*  insertcomment(comment:any):void
+  {
+    console.log("arrived");
+    console.log("hehe "+comment);
+    comment.date="14,Jun 2018";
+    console.log(comment.date);
+    console.log(comment);
+  }
+  */ getDishes():Observable<Dish[]>
   {
     return of(DISHES).pipe(delay(2000));
-    
   }
   getDish(id:string):Observable<Dish>{
     return of(DISHES.filter((dish)=>(dish.id===id))[0]).pipe(delay(2000));
