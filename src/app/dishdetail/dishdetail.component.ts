@@ -21,6 +21,7 @@ export class DishdetailComponent implements OnInit {
   prev:string;
   next:string;
   errMess:string;
+  dishcopy:Dish;
   constructor(private dishservice:DishService,private location:Location,
     private router:ActivatedRoute,private fb:FormBuilder,@Inject('baseURL') public BaseURL) {
       this.createForm();
@@ -32,7 +33,7 @@ export class DishdetailComponent implements OnInit {
       .subscribe((dishIds) =>this.dishIds=dishIds,errmess=>this.errMess=<any>errmess);
   
       this.router.params.pipe(switchMap((params:Params) => this.dishservice.getDish(params['id'])))
-    .subscribe(dish=>{this.dish=dish; this.setPrevNext(dish.id)},errmess=>this.errMess=<any>errmess);
+     .subscribe(dish=>{this.dish=dish;this.dishcopy=dish; this.setPrevNext(dish.id)},errmess=>this.errMess=<any>errmess);
     }
   
      formErrors = {
@@ -91,7 +92,13 @@ this.onValueChanged();
     this.comments = this.commentForm.value;
     var commentdate=new Date().toISOString();
     this.commentForm.value.date = commentdate;
-    this.dish.comments.push(this.comments);
+    //this.dish.comments.push(this.comments);
+    this.dishcopy.comments.push(this.comments);
+    this.dishservice.putDish(this.dishcopy)
+      .subscribe(dish => {
+        this.dish = dish; this.dishcopy = dish;
+      },
+      errmess => { this.dish = null; this.dishcopy = null; this.errMess = <any>errmess; });
     this.commentForm.reset({
       author:"",
       rating:5,

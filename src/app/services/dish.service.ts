@@ -42,16 +42,15 @@ export class DishService {
     // return of(DISHES.map(dish=>dish.id));
 
   }
-
-  putDish(dish:Dish): Observable<Dish>{
-    const httpOptions={
+  putDish(dish: Dish): Observable<Dish> {
+    const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':'application/json'
+        'Content-Type':  'application/json'
       })
     };
+    return this.http.put<Dish>(baseURL + 'dishes/' + dish.id, dish, httpOptions)
+      .pipe(catchError(this.ProcessHTTPmsgService.handleError));
 
-    return this.http.put<Dish>(baseURL + 'dishes/'+dish.id,dish,httpOptions).
-    pipe(catchError(this.ProcessHTTPmsgService.handleError));
   }
 }
 
