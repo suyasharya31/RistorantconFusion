@@ -1,4 +1,4 @@
-import { Component, OnInit,Input,ViewChild } from '@angular/core';
+import { Component, OnInit,Input,ViewChild ,Inject} from '@angular/core';
 import {Params,ActivatedRoute } from '@angular/router';
 import {Location} from '@angular/common';
 import {FormGroup,FormBuilder,Validators} from '@angular/forms';
@@ -20,19 +20,19 @@ export class DishdetailComponent implements OnInit {
   dishIds:string[];
   prev:string;
   next:string;
-
+  errMess:string;
   constructor(private dishservice:DishService,private location:Location,
-    private router:ActivatedRoute,private fb:FormBuilder) {
+    private router:ActivatedRoute,private fb:FormBuilder,@Inject('baseURL') public BaseURL) {
       this.createForm();
      }
      ngOnInit(){
       //activated router service provides observable for ex params
       //let id=this.router.snapshot.params['id'];
       this.dishservice.getDishIds()
-      .subscribe((dishIds) =>this.dishIds=dishIds);
+      .subscribe((dishIds) =>this.dishIds=dishIds,errmess=>this.errMess=<any>errmess);
   
       this.router.params.pipe(switchMap((params:Params) => this.dishservice.getDish(params['id'])))
-    .subscribe(dish=>{this.dish=dish; this.setPrevNext(dish.id)});
+    .subscribe(dish=>{this.dish=dish; this.setPrevNext(dish.id)},errmess=>this.errMess=<any>errmess);
     }
   
      formErrors = {

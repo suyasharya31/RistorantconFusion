@@ -32,7 +32,9 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { DishService } from './services/dish.service';
 import { LeaderService } from './services/leader.service';
 import { LoginComponent } from './login/login.component';
-
+import {HttpClientModule} from '@angular/common/http';
+import { baseURL } from './shared/baseurl';
+import { ProcessHTTPmsgService } from './services/process-httpmsg.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,12 +66,14 @@ import { LoginComponent } from './login/login.component';
     MatSelectModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
-    MatSliderModule
+    MatSliderModule,
+    HttpClientModule
   ],
   entryComponents:[
     LoginComponent
   ],
-  providers: [DishService,LeaderService],
+  providers: [DishService,LeaderService,ProcessHTTPmsgService,
+  {provide:'baseURL',useValue: baseURL }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
