@@ -6,10 +6,24 @@ import {Dish} from '../shared/dish';
 import {Comment} from  '../shared/Comment';
 import {DishService} from '../services/dish.service';
 import {switchMap} from 'rxjs/operators';
+import {trigger,state,style,animate,transition} from '@angular/animations';
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styleUrls: ['./dishdetail.component.scss']
+  styleUrls: ['./dishdetail.component.scss'],
+  animations:[
+    trigger('visibility',[
+    state('shown',style({
+      transform:'scale(1.01)',
+      opacity:1
+    })),
+    state('hidden',style({
+      transform: 'scale(0.5)',
+      opacity:0
+    })),
+    transition('* => *',animate('0.5s ease-in-out'))
+  ])
+  ]
 })
 export class DishdetailComponent implements OnInit {
   @ViewChild('cform') commentFormDirective;
@@ -22,6 +36,7 @@ export class DishdetailComponent implements OnInit {
   next:string;
   errMess:string;
   dishcopy:Dish;
+  visibility:'shown';
   constructor(private dishservice:DishService,private location:Location,
     private router:ActivatedRoute,private fb:FormBuilder,@Inject('baseURL') public BaseURL) {
       this.createForm();

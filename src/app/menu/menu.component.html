@@ -4,7 +4,7 @@
         <hr>
     </div>
     <mat-grid-list cols="2" rowHeight="200px" fxFlex>
-        <mat-grid-tile *ngFor="let dish of dishes"  [routerLink]="['/dishdetail',dish.id]">
+        <mat-grid-tile *ngFor="let dish of dishes"  [routerLink]="['/dishdetail',dish.id]" appHighlight>
             <img  src= "{{BaseURL + dish.image}}" alt={{dish.name}}>
             <mat-grid-tile-footer>
                 <h3>{{dish.name | uppercase}}</h3>

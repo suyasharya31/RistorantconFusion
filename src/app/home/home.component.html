@@ -32,7 +32,7 @@
       <h3>{{promotion.name | uppercase}}</h3>
     </mat-card-title>
   </mat-card-header>
-  <img mat-card-sm-image src={{promotion.image}} alt={{promotion.name}}>
+  <img mat-card-sm-image src="{{BaseURL + promotion.image}}" alt={{promotion.name}}>
   <mat-card-content>
     <p>{{promotion.description}}
     </p>
@@ -46,7 +46,7 @@
       <h3>{{leader.name | uppercase}}</h3>
     </mat-card-title>
   </mat-card-header>
-  <img mat-card-sm-image src={{leader.image}} alt={{leader.name}}>
+  <img mat-card-sm-image src="{{BaseURL + leader.image}}" alt={{leader.name}}>
   <mat-card-content>
     <span>{{leader.designation}}</span>
     <p>{{leader.description}}

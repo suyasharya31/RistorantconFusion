@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {Dish} from '../shared/dish';
-//import {DISHES} from '../shared/dishes';
 import {of,Observable} from 'rxjs';
 import {delay, map, catchError} from 'rxjs/operators';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -9,9 +8,6 @@ import { ProcessHTTPmsgService } from './process-httpmsg.service';
 @Injectable({
   providedIn: 'root'
 })
-
-
-
 export class DishService {
 
   constructor(private http:HttpClient,
